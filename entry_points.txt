@@ -1,0 +1,2 @@
+[console_scripts]
+s3-pull-processor = s3_pull_processor.s3_pull_processor:cli

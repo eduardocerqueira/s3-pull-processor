@@ -1,0 +1,2 @@
+def ibutsu():
+    print("ibutsu")
