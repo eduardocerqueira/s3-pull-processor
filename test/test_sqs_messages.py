@@ -53,7 +53,7 @@ def test_consume_all_messages():
             # delete
             aws.delete_message(receipt=message["ReceiptHandle"])
             print(f"DELETED :: message {counter} - {msg}")
-            counter += counter
+            counter = counter + 1
 
         # abort, well done! all messages consumed
         if "Messages" not in response:

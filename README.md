@@ -37,7 +37,7 @@ For this step the code [test_host_uploader](test/test_e2e.py) was executed:
 
 5. simulating a `HOST B` where it consumes messages from SQS and for each message download the artifact from S3,
 run an action on this case it run [import_to_ibutsu](s3_pull_processor/actions.py) action then delete the file
-from S3 and finally delete the message from SQS.
+from S3 and finally delete the message from SQS. For this step the code [test_host_consumer](test/test_e2e.py) was executed
 
     ![host_B](doc/img/demo_host_consumer.png)
 
