@@ -42,6 +42,8 @@ from S3 and finally delete the message from SQS. For this step the code [test_ho
     ![host_B](doc/img/demo_host_consumer.png)
 
 
+Also see [scenarios](doc/developer_guide.md#scenarios) in developer guide.
+
 ## links
 * [miro diagram](https://miro.com/app/board/uXjVOOPt_g4=/)
 * [SQS](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-using-send-message-with-attributes.html)
