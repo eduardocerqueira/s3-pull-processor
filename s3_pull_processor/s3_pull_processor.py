@@ -2,8 +2,8 @@ import logging
 import warnings
 
 import click
-from upload import upload_artifact
-from pull import pull_artifacts
+from s3_pull_processor.upload import upload_artifact
+from s3_pull_processor.pull import pull_artifacts
 
 logger = logging.getLogger(__name__)
 
