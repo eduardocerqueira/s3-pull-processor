@@ -133,3 +133,6 @@ dmypy.json
 
 # notes
 TODO.txt
+
+# scripts
+creds.sh
