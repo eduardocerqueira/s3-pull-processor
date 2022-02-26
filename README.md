@@ -24,7 +24,7 @@ The items 1 to 5 below, show an e2e execution from uploader to processor or cons
 
 
 2. simulating a `HOST A` where the artifact exist and need to be uploaded to S3, also a message is sent to SQS.
-For this step the code [test_host_uploader](test/test_e2e.py) was executed:
+For this step the code [test_host_producer](test/test_e2e.py) was executed:
 
     ![host_A](doc/img/demo_host_uploader.png)
 

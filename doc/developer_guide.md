@@ -58,7 +58,9 @@ pytest -srxv test_e2e.py
 
 ### Scenarios
 
-#### HOST A send messages and HOST B consume messages from SQS
+#### Two hosts exchanging SQS messages, producer and consumer
+
+HOST A sends messages and HOST B consume messages from SQS
 
 ```shell
 # terminal 1
@@ -70,11 +72,13 @@ watch -n 1 "pytest -srxv test_sqs_messages.py -k test_consume_all_messages"
 
 ![scenario1](img/scenario_1.png)
 
-#### HOST A upload artifact to S3 and HOST B consuming it
+#### e2e simulation S3 artifact and SQS messages exchanged between two hosts, producer and consumer
+
+HOST A upload artifact to S3 and sends messages to SQS, HOST B consuming it asynchronously
 
 ```shell
 # terminal 1
-watch -n 1 "pytest -srxv test_e2e.py -k test_host_uploader"
+watch -n 1 "pytest -srxv test_e2e.py -k test_host_producer"
 
 # terminal 2
 watch -n 1 "pytest -srxv test_e2e.py -k test_host_consumer"

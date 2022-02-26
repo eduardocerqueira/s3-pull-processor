@@ -99,3 +99,13 @@ class AWSClient:
             self.sqs.delete_message(QueueUrl=self.sqs_queue_url, ReceiptHandle=receipt)
         except Exception as ex:
             print(ex)
+
+    def abort_transaction(self, artifact_name):
+        """
+        abort transaction to avoid S3 orphan files, situation when artifact is uploaded to S3 but
+        program execution was interrupted before SQS message be dispatched.
+        :param artifact_name: artifact name
+        """
+        if artifact_name:
+            print(f"transaction aborted for artifact: {artifact_name}")
+            self.delete_file(file_name=artifact_name)
