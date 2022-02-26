@@ -77,6 +77,7 @@ class AWSClient:
             return response
         except Exception as ex:
             print(ex)
+            return ex
 
     def read_message(self, max, wait, timeout=0):
         try:
@@ -109,3 +110,13 @@ class AWSClient:
         if artifact_name:
             print(f"transaction aborted for artifact: {artifact_name}")
             self.delete_file(file_name=artifact_name)
+
+    def wipe_out(self):
+        response = self.s3.list_objects_v2(Bucket=self.s3_bucket)
+
+        if "Contents" in response:
+            for item in response["Contents"]:
+                print("deleting file", item["Key"])
+                self.delete_file(file_name=item["Key"])
+
+        print("S3 bucket is empty")

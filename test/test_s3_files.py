@@ -44,3 +44,8 @@ def test_delete_file():
         aws.delete_file(file_name=artifact.name)
 
     assert True
+
+
+def test_s3_delete_all_objects():
+    aws = AWSClient()
+    aws.wipe_out()

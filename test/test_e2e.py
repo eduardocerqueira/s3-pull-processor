@@ -1,6 +1,10 @@
 import os
 import signal
+import sys
+import time
 
+import boto3.exceptions
+import botocore.exceptions
 import pytest
 from s3_pull_processor.aws import AWSClient
 from s3_pull_processor.artifact import Artifact
@@ -20,7 +24,7 @@ def test_e2e():
     aws = AWSClient()
 
     # ** host A **
-    print("\n HOST A")
+    print("\n ***************** HOST A *****************")
 
     # safety transaction, file and message must exist
     artifact = Artifact.artifact_mock(1)[0]
@@ -31,11 +35,14 @@ def test_e2e():
         # send message to SQS
         response = aws.send_message(artifact=artifact)
         assert response["ResponseMetadata"]["HTTPStatusCode"] == 200
-    except signal.SIGTERM:
+
+    except KeyboardInterrupt:
+        print("[CTRL+C detected]")
         aws.abort_transaction(artifact_name=artifact.name)
+        sys.exit(1)
 
     # ** host B **
-    print("\n HOST B")
+    print("\n ***************** HOST B *****************")
 
     # read messages from SQS
     response = aws.read_message(max=1, wait=1, timeout=10)
@@ -51,7 +58,9 @@ def test_e2e():
     import_to_ibutsu(f"{path}/{msg['path']}")
 
     # delete local file
-    # TODO: delete file
+    if os.path.exists(f"{path}/{msg['name']}"):
+        os.remove(f"{path}/{msg['name']}")
+        print(f"local file deleted: {path}/{msg['name']}")
 
     # delete msg's artifact file from S3
     assert aws.delete_file(file_name=msg["name"])
@@ -70,11 +79,23 @@ def test_host_producer():
         try:
             # upload file to S3 bucket
             assert aws.upload_file(file_path=artifact.path, file_name=artifact.name)
+
             # send message to SQS
             response = aws.send_message(artifact=artifact)
             assert response["ResponseMetadata"]["HTTPStatusCode"] == 200
-        except signal.SIGTERM:
+        except KeyboardInterrupt:
+            print("[CTRL+C detected]")
             aws.abort_transaction(artifact_name=artifact.name)
+            sys.exit(1)
+        except Exception:
+            print(response.response["Error"]["Code"])
+            aws.abort_transaction(artifact_name=artifact.name)
+            if (
+                "AWS.SimpleQueueService.NonExistentQueue"
+                in response.response["Error"]["Code"]
+            ):
+                print("*** check your AWS credentials ***")
+            sys.exit(1)
 
 
 def test_host_consumer():
@@ -109,7 +130,9 @@ def test_host_consumer():
             import_to_ibutsu(f"{path}/{msg['path']}")
 
             # delete local file
-            # TODO: delete file
+            if os.path.exists(f"{path}/{msg['name']}"):
+                os.remove(f"{path}/{msg['name']}")
+                print(f"local file deleted: {path}/{msg['name']}")
 
             # delete msg's artifact file from S3
             assert aws.delete_file(file_name=msg["name"])

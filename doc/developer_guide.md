@@ -2,11 +2,13 @@
 
 ## install
 
+the script below installs
+
 ```shell
 sh ops/scripts/install.sh
 ```
 
-or to setup your dev environment:
+afterwards, if you want  dev environment:
 
 ```shell
 pip install --editable .[dev]
