@@ -1,5 +1,6 @@
 import uuid
 from s3_pull_processor.util import tarfile_mock
+import datetime
 
 
 class Artifact:
@@ -16,3 +17,9 @@ class Artifact:
             artifact.path = tarfile_mock(artifact.name)
             artifact_list.append(artifact)
         return artifact_list
+
+    @staticmethod
+    def set_name():
+        now = datetime.datetime.now()
+        name = f"artifact-{now.minute}{now.second}-{str(uuid.uuid4())[:4]}.tar.gz"
+        return name

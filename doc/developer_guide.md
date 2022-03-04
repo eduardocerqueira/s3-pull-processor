@@ -2,7 +2,8 @@
 
 ## install
 
-the script below installs
+run the script below to install the program in a consistent way, if you prefer check how to use in
+[container mode](container.md)
 
 ```shell
 sh ops/scripts/install.sh
@@ -30,18 +31,19 @@ export AWS_S3_SECURE_CONNECTION==**************
 follow steps from [pre-requisite](developer_guide.md#pre-requisite)
 
 ```shell
-# generate some artifacts
+# generate some fake artifacts for development
 sh ops/scripts/artifact_generator.sh
 
 # upload artifact
 s3-pull-processor upload --path /home/ecerquei/git/s3-pull-processor/artifacts/artifact-1.tar.gz
 
 # pull artifacts
-s3-pull-processor pull --interval 10
-
-# pull artifacts and run action
-s3-pull-processor pull --interval 10 --action ibutsu
+s3-pull-processor pull
 ```
+
+![upload_pull](img/demo_upload_pull.png)
+
+you also can run using containers, follow the instructions at [container example](container.md#example)
 
 ## running tests
 
@@ -56,9 +58,16 @@ pytest -srxv test_s3_files.py
 
 # E2E
 pytest -srxv test_e2e.py
+
+# wipe out S3 and SQS, helpful for development
+pytest -srxv test_wipe_out.py
 ```
 
-### Scenarios
+## debug
+
+see [configuring pycharm for debug](debug.md)
+
+### TDD Scenarios
 
 #### Two hosts exchanging SQS messages, producer and consumer
 

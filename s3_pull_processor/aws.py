@@ -1,30 +1,63 @@
+import sys
+
 from boto3 import client
 from os import getenv
 from botocore.exceptions import ClientError
 import json
 
 
-class AWSClient:
+class AWSConfException(Exception):
+    """Raise AWS Credentials environment variable not found"""
+
+    def __init__(self):
+        default_message = "AWS credentials environment variables not found"
+        super().__init__(default_message)
+
+
+class AWSConf:
+    aws_access_key_id = getenv("AWS_ACCESS_KEY_ID")
+    aws_secret_access_key = getenv("AWS_SECRET_ACCESS_KEY")
+    region_name = getenv("AWS_DEFAULT_REGION", "us-east-2")
+    use_ssl = getenv("AWS_S3_SECURE_CONNECTION", "True")
+
+    def is_cred(self):
+        if (
+            len(self.aws_secret_access_key) == 0
+            or len(self.aws_access_key_id) == 0
+            or len(self.region_name) == 0
+            or len(self.use_ssl) == 0
+        ):
+            print("WARN: >>> AWS credentials environment variables not found <<<")
+            return False
+        else:
+            return True
+
+
+class AWSClient(AWSConf):
     sqs_queue_url = (
         "https://sqs.us-east-2.amazonaws.com/988542195534/ARTIFACT_QUEUE.fifo"
     )
     s3_bucket = "artifact-poc-bucket"
 
-    sqs = client(
-        service_name="sqs",
-        aws_access_key_id=getenv("AWS_ACCESS_KEY_ID"),
-        aws_secret_access_key=getenv("AWS_SECRET_ACCESS_KEY"),
-        region_name=getenv("AWS_DEFAULT_REGION"),
-        use_ssl=getenv("AWS_S3_SECURE_CONNECTION"),
-    )
+    sqs = None
+    s3 = None
 
-    s3 = client(
-        service_name="s3",
-        aws_access_key_id=getenv("AWS_ACCESS_KEY_ID"),
-        aws_secret_access_key=getenv("AWS_SECRET_ACCESS_KEY"),
-        region_name=getenv("AWS_DEFAULT_REGION"),
-        use_ssl=getenv("AWS_S3_SECURE_CONNECTION"),
-    )
+    if AWSConf.is_cred(AWSConf):
+        sqs = client(
+            service_name="sqs",
+            aws_access_key_id=AWSConf.aws_access_key_id,
+            aws_secret_access_key=AWSConf.aws_secret_access_key,
+            region_name=AWSConf.region_name,
+            use_ssl=AWSConf.use_ssl,
+        )
+
+        s3 = client(
+            service_name="s3",
+            aws_access_key_id=AWSConf.aws_access_key_id,
+            aws_secret_access_key=AWSConf.aws_secret_access_key,
+            region_name=AWSConf.region_name,
+            use_ssl=AWSConf.use_ssl,
+        )
 
     def upload_file(self, file_path, file_name):
         """upload file to S3"""
