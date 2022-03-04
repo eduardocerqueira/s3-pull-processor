@@ -1,4 +1,5 @@
 [![Docker Image CI](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/docker-image.yml)
+[![pre-commit CI](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/pylint.yml/badge.svg?branch=main)](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/pylint.yml)
 
 # s3-pull-processor
 
