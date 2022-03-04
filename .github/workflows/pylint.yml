@@ -22,4 +22,3 @@ jobs:
       run: |
         pre-commit run --all
         #pylint $(git ls-files '*.py')
-        
