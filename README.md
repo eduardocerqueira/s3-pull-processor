@@ -1,3 +1,5 @@
+[![Docker Image CI](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/docker-image.yml)
+
 # s3-pull-processor
 
 This project is a POC, proof of concept for client to upload pipeline artifacts to an object storage as S3 and able
