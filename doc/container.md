@@ -12,10 +12,22 @@ docker run --name poc-s3 s3-pull-processor
 
 Simulating HOST-A uploading artifact data to S3, and HOST-B pulling data from S3 and SQS and processing it.
 
+Notice the argument `-f` passed to the command to run on the HOST-A, it is to create a fake artifact file for test
+
 ```shell
 # HOST-A
-docker run --name host-a s3-pull-processor s3-pull-processor upload -p /tmp/test123.tar -f
+docker run -e "AWS_ACCESS_KEY_ID=*************" \
+-e "AWS_SECRET_ACCESS_KEY=*************" \
+-e "AWS_DEFAULT_REGION=*************" \
+-e "AWS_S3_SECURE_CONNECTION=*************" \
+--name host-a s3-pull-processor s3-pull-processor upload -p /tmp/fake-artifact-file.tar -f
 
 # HOST-B
-docker run --name host-b s3-pull-processor s3-pull-processor pull
+docker run -e "AWS_ACCESS_KEY_ID=*************" \
+-e "AWS_SECRET_ACCESS_KEY=*************" \
+-e "AWS_DEFAULT_REGION=*************" \
+-e "AWS_S3_SECURE_CONNECTION=*************" \
+--name host-b s3-pull-processor s3-pull-processor pull
 ```
+
+![demo_container](img/demo_container.png)
