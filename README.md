@@ -1,10 +1,13 @@
 [![Docker Image CI](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/docker-image.yml)
 [![pre-commit CI](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/pylint.yml/badge.svg?branch=main)](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/pylint.yml)
+[![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
+[![GitHub tag](https://img.shields.io/github/tag/eduardocerqueira/s3-pull-processor.svg)](https://GitHub.com/eduardocerqueira/s3-pull-processor/tags/)
+[![GitHub issues](https://img.shields.io/github/issues/eduardocerqueira/s3-pull-processor.svg)](https://GitHub.com/eduardocerqueira/s3-pull-processor/issues/)
 
 # s3-pull-processor
 
 This project is a POC, proof of concept for client to upload pipeline artifacts to an object storage as S3 and able
-to consume the artifacts efficiently. The consumer must be scalable.
+to consume the artifacts efficiently. The consumer is scalable, containerized and ready to run in k8s/Openshift
 
 The diagram below represents a high-level workflow, the boxes `uploader CLI` and `processor` are the components here
 being implemented.
