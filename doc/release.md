@@ -1,5 +1,8 @@
 # release
 
+* [pypi](https://pypi.org/project/s3-pull-processor/)
+* [pypitest env](https://test.pypi.org/project/s3-pull-processor/)
+
 ## pre-requisite
 
 * testpypi and pypi TOKEN
