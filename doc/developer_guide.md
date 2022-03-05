@@ -2,8 +2,7 @@
 
 ## install
 
-run the script below to install the program in a consistent way, if you prefer check how to use in
-[container mode](container.md)
+run the script below to install the program in a consistent way:
 
 ```shell
 sh ops/scripts/install.sh
@@ -20,6 +19,13 @@ This project is also available in [pypi](https://pypi.org/project/s3-pull-proces
 ```shell
 # installing latest version from https://pypi.org/project/s3-pull-processor/
 pip install s3-pull-processor
+```
+
+Also, there is container image available, check more info and how to use in [container mode](container.md)
+
+```shell
+# pull latest container image
+ docker pull ghcr.io/eduardocerqueira/s3-pull-processor:latest
 ```
 
 ## pre-requisite
