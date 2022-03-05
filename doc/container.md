@@ -8,6 +8,14 @@ sh ops/scripts/container_image_build.sh
 docker run --name poc-s3 s3-pull-processor
 ```
 
+A new container image is automatically build when a new package version is released. The container image is available
+in [ghcr.io/eduardocerqueira/s3-pull-processor:latest](ghcr.io/eduardocerqueira/s3-pull-processor:latest)
+
+```shell
+# pull latest container image
+ docker pull ghcr.io/eduardocerqueira/s3-pull-processor:latest
+```
+
 ## example
 
 Simulating HOST-A uploading artifact data to S3, and HOST-B pulling data from S3 and SQS and processing it.
@@ -31,3 +39,7 @@ docker run -e "AWS_ACCESS_KEY_ID=*************" \
 ```
 
 ![demo_container](img/demo_container.png)
+
+
+# links
+[ghcr.io](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)

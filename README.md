@@ -3,6 +3,8 @@
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
 [![GitHub tag](https://img.shields.io/github/tag/eduardocerqueira/s3-pull-processor.svg)](https://GitHub.com/eduardocerqueira/s3-pull-processor/tags/)
 [![GitHub issues](https://img.shields.io/github/issues/eduardocerqueira/s3-pull-processor.svg)](https://GitHub.com/eduardocerqueira/s3-pull-processor/issues/)
+[![PyPI version](https://badge.fury.io/py/s3-pull-processor.svg)](https://badge.fury.io/py/s3-pull-processor)
+[![publish a Container image](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/publish-container.yml/badge.svg)](https://github.com/eduardocerqueira/s3-pull-processor/actions/workflows/publish-container.yml)
 
 # s3-pull-processor
 
