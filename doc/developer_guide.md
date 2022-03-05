@@ -15,7 +15,7 @@ afterwards, if you want  dev environment:
 pip install --editable .[dev]
 ```
 
-This project is also available in [pypi](https://pypi.org/project/s3-pull-processor/) 
+This project is also available in [pypi](https://pypi.org/project/s3-pull-processor/)
 
 ```shell
 # installing latest version from https://pypi.org/project/s3-pull-processor/
