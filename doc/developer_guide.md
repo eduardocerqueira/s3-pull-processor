@@ -15,7 +15,7 @@ afterwards, if you want  dev environment:
 pip install --editable .[dev]
 ```
 
-This project is also available in [pypi](https://pypi.org/project/s3-pull-processor/)
+This project is also available in [pypi](https://pypi.org/project/s3-pull-processor/) 
 
 ```shell
 # installing latest version from https://pypi.org/project/s3-pull-processor/
@@ -103,6 +103,10 @@ watch -n 1 "pytest -srxv test_e2e.py -k test_host_consumer"
 ```
 
 ![scenario2](img/scenario_2.png)
+
+## release
+
+see [release doc](release.md)
 
 ## contributing
 
