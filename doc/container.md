@@ -16,6 +16,8 @@ in [ghcr.io/eduardocerqueira/s3-pull-processor:latest](ghcr.io/eduardocerqueira/
  docker pull ghcr.io/eduardocerqueira/s3-pull-processor:latest
 ```
 
+see s3-pull-processor running in [k8s/Openshift](openshift.md)
+
 ## example
 
 Simulating HOST-A uploading artifact data to S3, and HOST-B pulling data from S3 and SQS and processing it.

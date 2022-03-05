@@ -1,0 +1,28 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: s3-pull-processor
+  labels:
+    app: s3-pull-processor
+    app.kubernetes.io/component: s3-pull-processor
+    app.kubernetes.io/instance: s3-pull-processor
+    app.kubernetes.io/name: s3-pull-processor
+    app.kubernetes.io/part-of: s3-pull-processor-app
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - name: latest
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+        openshift.io/imported-from: 'ghcr.io/eduardocerqueira/s3-pull-processor:latest'
+      from:
+        kind: DockerImage
+        name: 'ghcr.io/eduardocerqueira/s3-pull-processor:latest'
+      generation: 2
+      importPolicy: {}
+      referencePolicy:
+        type: Local
+status:
+  dockerImageRepository: >-
+    image-registry.openshift-image-registry.svc:5000/insights-qe-dev/s3-pull-processor

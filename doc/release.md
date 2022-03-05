@@ -29,5 +29,5 @@ python3.9 -m twine upload dist/*
 ```shell
 echo $CR_PAT | docker login ghcr.io -u eduardocerqueira --password-stdin
 docker tag f849ee50d8b1 ghcr.io/eduardocerqueira/s3-pull-processor:latest
-docker push ghcr.io/eduardocerqueira/s3-pull-processor:lates
+docker push ghcr.io/eduardocerqueira/s3-pull-processor:latest
 ```
