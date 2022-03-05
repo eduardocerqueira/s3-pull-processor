@@ -1,0 +1,91 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: s3-pull-processor
+  labels:
+    app: s3-pull-processor
+    app.kubernetes.io/component: s3-pull-processor
+    app.kubernetes.io/instance: s3-pull-processor
+    app.kubernetes.io/name: s3-pull-processor
+    app.kubernetes.io/part-of: s3-pull-processor-app
+    app.openshift.io/runtime: python
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - s3-pull-processor
+        from:
+          kind: ImageStreamTag
+          name: 's3-pull-processor:latest'
+        lastTriggeredImage: >-
+          image-registry.openshift-image-registry.svc:5000/insights-qe-dev/s3-pull-processor@sha256:65a3366756ca1e50ae5c4f2f2eb38fc39db1fb0fdd71de448aa3ad27cfede5f3
+    - type: ConfigChange
+  replicas: 0
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    app: s3-pull-processor
+    deploymentconfig: s3-pull-processor
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: s3-pull-processor
+        deploymentconfig: s3-pull-processor
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+    spec:
+      containers:
+        - name: s3-pull-processor
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/insights-qe-dev/s3-pull-processor@sha256:65a3366756ca1e50ae5c4f2f2eb38fc39db1fb0fdd71de448aa3ad27cfede5f3
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: awscreds
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+status:
+  latestVersion: 2
+  observedGeneration: 4
+  replicas: 0
+  updatedReplicas: 0
+  availableReplicas: 0
+  unavailableReplicas: 0
+  details:
+    message: config change
+    causes:
+      - type: ConfigChange
+  conditions:
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2022-03-05T19:43:42Z'
+      lastTransitionTime: '2022-03-05T19:43:37Z'
+      reason: NewReplicationControllerAvailable
+      message: replication controller "s3-pull-processor-2" successfully rolled out
+    - type: Available
+      status: 'False'
+      lastUpdateTime: '2022-03-05T19:43:59Z'
+      lastTransitionTime: '2022-03-05T19:43:59Z'
+      message: Deployment config does not have minimum availability.

@@ -28,6 +28,8 @@ Also, there is container image available, check more info and how to use in [con
  docker pull ghcr.io/eduardocerqueira/s3-pull-processor:latest
 ```
 
+see s3-pull-processor running in [k8s/Openshift](openshift.md)
+
 ## pre-requisite
 
 export AWS variables

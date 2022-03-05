@@ -1,0 +1,61 @@
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: cron-s3pp-pull
+  creationTimestamp: null
+  labels:
+    mode: pull
+spec:
+  schedule: '10 * * * *'
+  concurrencyPolicy: Replace
+  suspend: false
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      labels:
+        job-name: cron-s3pp-pull
+        mode: pull
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          containers:
+            - name: s3pp-pull
+              image: image-registry.openshift-image-registry.svc:5000/insights-qe-dev/s3-pull-processor
+              command:
+                - bash
+                - '-c'
+                - echo 'sleeping 60s' && sleep 60 && s3-pull-processor pull
+              env:
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      key: AWS_ACCESS_KEY_ID
+                      name: awscreds
+                - name: AWS_DEFAULT_REGION
+                  valueFrom:
+                    secretKeyRef:
+                      key: AWS_DEFAULT_REGION
+                      name: awscreds
+                - name: AWS_S3_SECURE_CONNECTION
+                  valueFrom:
+                    secretKeyRef:
+                      key: AWS_S3_SECURE_CONNECTION
+                      name: awscreds
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: AWS_SECRET_ACCESS_KEY
+                      name: awscreds
+              imagePullPolicy: IfNotPresent
+              resources: {}
+              terminationMessagePath: /dev/termination-log
+              terminationMessagePolicy: File
+          dnsPolicy: ClusterFirst
+          restartPolicy: Never
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
