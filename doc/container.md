@@ -1,5 +1,22 @@
 # container
 
+## Running the latest container image from GitHub register
+
+A new container image is automatically build when a new package version is released. The container image is available
+in [ghcr.io/eduardocerqueira/s3-pull-processor:latest](ghcr.io/eduardocerqueira/s3-pull-processor:latest)
+
+```shell
+# pull latest container image
+ docker pull ghcr.io/eduardocerqueira/s3-pull-processor:latest
+
+# run container with no arguments
+docker run --name poc-s3 ghcr.io/eduardocerqueira/s3-pull-processor s3-pull-processor
+```
+
+see [example](container.md#example-running-from-container) running e2e scenario
+
+## Building your own image
+
 ```shell
 # build container
 sh ops/scripts/container_image_build.sh
@@ -8,17 +25,13 @@ sh ops/scripts/container_image_build.sh
 docker run --name poc-s3 s3-pull-processor
 ```
 
-A new container image is automatically build when a new package version is released. The container image is available
-in [ghcr.io/eduardocerqueira/s3-pull-processor:latest](ghcr.io/eduardocerqueira/s3-pull-processor:latest)
+see [example](container.md#example-running-from-container) running e2e scenario
 
-```shell
-# pull latest container image
- docker pull ghcr.io/eduardocerqueira/s3-pull-processor:latest
-```
+## OCP/K8s
 
 see s3-pull-processor running in [k8s/Openshift](openshift.md)
 
-## example
+## Example running from container
 
 Simulating HOST-A uploading artifact data to S3, and HOST-B pulling data from S3 and SQS and processing it.
 
